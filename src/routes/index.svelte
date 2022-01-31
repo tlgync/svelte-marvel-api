@@ -1,6 +1,5 @@
 
 <script lang="ts">
-import { Service } from "../services";
 import type { IResult } from "../types/CharactersType";
 import { onMount } from 'svelte';
 import { BaseConfig } from "../config/index";

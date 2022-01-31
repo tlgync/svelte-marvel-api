@@ -2,37 +2,13 @@
 import type { IResult } from "../types/CharactersType";
 
     export let characters: IResult[];
-    const loaded = new Map();
-    let visible = true
-
-    function lazy(node, data) {
-		if (loaded.has(data.src)) {
-			node.setAttribute('src', data.src);
-		} else {
-			// simulate slow loading network
-			setTimeout(() => {
-				const img = new Image();
-				img.src = data.src;
-				img.onload = () => {
-					loaded.set(data.src, img);
-					node.setAttribute('src', data.src); 
-				};
-			}, 2000);
-		}
-
-		return {
-			destroy(){} // noop
-		};
-	}
 
 </script>
 
 <main class="content">
     {#each characters as character (character.id) }
         <a href={`/detail/${character.id}`} class="character">
-            {#if visible }
-            <img src={`${character.thumbnail.path}.jpg`} class="character-img" use:lazy="{{src: `${character.thumbnail.path}.jpg`}}" alt={character.name} />
-            {/if}
+            <img src={`${character.thumbnail.path}.jpg`} class="character-img" alt={character.name} />
             <div class="character-name">{character.name}</div>
         </a>
     {/each}
