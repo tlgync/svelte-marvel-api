@@ -1,6 +1,6 @@
 ### The marvel-api project I prepared with svelte.
 
-- Header a search will be added
+- Search will be added to the header
 
 ## What you can find
 
