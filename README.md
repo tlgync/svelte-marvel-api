@@ -8,3 +8,4 @@
 - Simple listing of incoming data
 - Lazy image with svelte
 - Transition with svelte
+- Lottie Animation with svelte
