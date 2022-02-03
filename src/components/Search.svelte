@@ -1,6 +1,6 @@
 <script lang="typescript">
 import {fly} from 'svelte/transition'
-import type { IResult } from "../types/CharactersType";
+import type {IResult}  from "../types/CharactersType";
 import {GetAllCharacters, SearchCharacter} from '../slices/charactersSlice'
 import {store} from '../store'
 
