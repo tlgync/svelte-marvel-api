@@ -1,40 +1,36 @@
 
 <script lang="ts">
-import type { IResult } from "../types/CharactersType";
 import { onMount } from 'svelte';
-import { BaseConfig } from "../config/index";
 import CharacterCard from "../components/CharacterCard.svelte";
 import Header from "../components/Header.svelte";
 import {fly} from 'svelte/transition'
 
-import { loader } from '../stores'
 import Loader from "../components/Loader.svelte";
+import Search from "../components/Search.svelte"
+
+import {charactersSelector, GetAllCharacters} from '../slices/charactersSlice'
+import {store, useSelector} from '../store'
 
 
-let characters: IResult[] = []
-
-
+$: newCharacters = useSelector(charactersSelector.data, newData => (newCharacters = newData) )
+$: searchCharacter = useSelector(charactersSelector.search, newData => (searchCharacter = newData) )
+$: newCharactersLoading = useSelector(charactersSelector.loading, newData => (newCharactersLoading = newData) )
 
 onMount(async () => {
-   $loader = true
-   const res = await fetch(`${BaseConfig.api.release.user}characters?limit=30&offset=0&ts=1&apikey=${BaseConfig.utilities.marvelPublicKey}&hash=${BaseConfig.utilities.hash}`);
-   if(res){
-       const response = await res.json()
-       characters = response.data.results;
-   }
-   $loader = false
+   store.dispatch(GetAllCharacters())
 });
-
-
 
 </script>
 
-<main class="content" in:fly={{y: 50, duration:500}} out:fly={{ duration:500}}>
-    {#if $loader}
+<main class="flex" in:fly={{y: 50, duration:500}} out:fly={{ duration:500}}>
+    {#if newCharactersLoading}
         <Loader />
     {/if}
     <Header/>
-    <CharacterCard characters={characters}/>
+    <div class="content">
+        <Search characters={searchCharacter} />
+    </div>
+    <CharacterCard characters={newCharacters}/>
 </main>
 
 
@@ -50,5 +46,12 @@ onMount(async () => {
         background-image: radial-gradient(circle, #f5f5f5 20%, transparent 10%), radial-gradient(circle, #f5f5f5 20%, transparent 10%);
         background-size: 10px 10px;
         background-position: 0 0, 0 0;
+    }
+    @media only screen and (max-width: 900px) {
+         .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 </style>

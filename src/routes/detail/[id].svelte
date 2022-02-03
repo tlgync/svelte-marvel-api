@@ -10,32 +10,27 @@
     import {fly} from 'svelte/transition'
     import {loader} from '../../stores'
     import Loader from '../../components/Loader.svelte';
+    import {charactersSelector, GetCharacterComics, GetCharacterDetail} from '../../slices/charactersSlice'
+    import {store, useSelector} from '../../store'
 
     let id = $page.params.id;
     let characterDetail: IResult = {} as IResult
-    let comics: IComicsResult[] = []
+    let comics: IComicsResult[];
+
+    $: comics = useSelector(charactersSelector.comics, newData => (comics = newData) )
+    $: characterDetail = useSelector(charactersSelector.characterDetail, newData => (characterDetail = newData) )
+
+    $: characterComicsLoading = useSelector(charactersSelector.loading, newData => (characterComicsLoading = newData) )
 
     onMount(async () => {
-        $loader = true
-        const res = await fetch(`${BaseConfig.api.release.user}characters/${id}?limit=10&offset=0&ts=1&apikey=${BaseConfig.utilities.marvelPublicKey}&hash=${BaseConfig.utilities.hash}`)
-        if(res){
-            const resJson = await res.json();
-            characterDetail = resJson.data.results[0];
-        }
-
-        const comicsRes = await fetch(`${BaseConfig.api.release.user}characters/${id}/comics?limit=10&offset=0&ts=1&apikey=${BaseConfig.utilities.marvelPublicKey}&hash=${BaseConfig.utilities.hash}&orderBy=-onsaleDate`)
-        if(comicsRes){
-            const comicsResJson = await comicsRes.json()
-            comics = comicsResJson.data.results;
-        }
-        $loader = false
+        store.dispatch(GetCharacterComics(id));
+        store.dispatch(GetCharacterDetail(id));
     })
-
-    console.log($loader);
+console.log(characterDetail);
 
 </script>
 
-{#if $loader}
+{#if characterComicsLoading}
     <Loader/>
 {/if}
     <main in:fly={{y: 50, duration:500}} out:fly={{ duration:500}}>
