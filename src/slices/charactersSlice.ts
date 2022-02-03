@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import pkg from "@reduxjs/toolkit";
 import { Service } from "../services";
+const { createSlice } = pkg;
 
 // Define initial state, slice name, and reducers
 const charactersSlice = createSlice({
