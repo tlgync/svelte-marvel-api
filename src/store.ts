@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { configureStore } from "@reduxjs/toolkit";
 import charactersSlice from "./slices/charactersSlice";
 
