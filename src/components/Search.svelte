@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 import {fly} from 'svelte/transition'
 import type {IResult}  from "../types/CharactersType";
 import {GetAllCharacters, SearchCharacter} from '../slices/charactersSlice'
