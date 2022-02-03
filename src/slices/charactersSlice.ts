@@ -1,7 +1,4 @@
-import pkg from "@reduxjs/toolkit";
-
-const { createSlice } = pkg
-
+import { createSlice } from "@reduxjs/toolkit";
 import { Service } from "../services";
 
 // Define initial state, slice name, and reducers

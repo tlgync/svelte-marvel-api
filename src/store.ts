@@ -1,8 +1,5 @@
 /* eslint-disable prefer-const */
-import pkg from "@reduxjs/toolkit";
-
-const { configureStore } = pkg
-
+import { configureStore } from "@reduxjs/toolkit";
 import charactersSlice from "./slices/charactersSlice";
 
 export const store = configureStore({
