@@ -1,9 +1,9 @@
 import pkg from "@reduxjs/toolkit";
 import { Service } from "../services";
-const { createSlice } = pkg;
+
 
 // Define initial state, slice name, and reducers
-const charactersSlice = createSlice({
+const charactersSlice = pkg.createSlice({
   name: "characters",
   initialState: {
     loading: false,

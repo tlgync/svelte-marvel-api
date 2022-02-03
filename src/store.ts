@@ -1,11 +1,9 @@
 /* eslint-disable prefer-const */
 import pkg from "@reduxjs/toolkit";
 
-const {configureStore} = pkg;
-
 import charactersSlice from "./slices/charactersSlice";
 
-export const store = configureStore({
+export const store = pkg.configureStore({
   reducer: {
     characters: charactersSlice,
   },
